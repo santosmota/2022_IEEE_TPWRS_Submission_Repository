@@ -29,7 +29,7 @@ The following files are stored in this folder:
   - **/Stability/**
       - **eigenvalues_00.csv ... eigenvalues_06.csv**: obtained after running **journal_powfact_charts_01.py**, used for plotting the 3 charts (side by side) with eigenvalues.
       - **timedomain_00.csv ... timedomain_06.csv**: time domain data with the steps of 1.2MW used for the eigenvalue analysis.
-  - **/ThreeStepsForPHILvalidation/**
+  - **/ThreeStepsForPHILvalidation/**: simulation files with 3MW steps used for validation with the PHIL results. 
       - **simulationdata_00.csv**: case 3, ESS + FLX
       - **simulationdata_01.csv**: case 2, GTs + ESS
       - **simulationdata_02.csv**: case 1, GTs only
