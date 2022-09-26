@@ -26,9 +26,9 @@ The following files are stored in this folder:
 Anonymized version of the Python scripts used for controlling PowerFactory and for obtaining the figures in the manuscript. The scripts have not been tested after anonymization.
 
 The following files are stored in this folder: 
-  - **powerfacgtorycontor.py**: custom made functions for controlling the model in 202208_RMS_Tests.pfd. Fuctions for open the project and study case, set gains, time for transients, run RMS simulations, run modal analyzis, etc.
+  - **powerfactorycontrol.py**: custom made functions for controlling the model in 202208_RMS_Tests.pfd. Fuctions for open the project and study case, set gains, time for transients, run RMS simulations, run modal analyzis, etc.
   - **plothelp.py**: custom made help functions for plotting the figures in the manuscript.
-  - **journal_powfact_charts_01.py**: control the model in model in 202208_RMS_Tests.pfd and runs (after manually commenting/uncommenting) the simulations for the detailed eigenvalue analysis. Runs also the RMS simulations for comparison with the PHIL setup.
+  - **journal_powfact_charts_01.py**: controls 202208_RMS_Tests.pfd and runs the simulations for the detailed eigenvalue analysis. Runs also the RMS simulations for comparison with the PHIL setup. Functions have to be manually commented/uncommented inside the script.
   - **journal_PowFacRTLAB_charts_01.py*: plots the load steps with secondary power response from the PowerFactory and PHIL tests.
   - **journal_MATLAB_eigen_7csv.py**:  for obtaining the figure in the manuscript with caption "Eigenvalues with linearized rotating mass model for a total gain of 12 MW/Hz and different sharing of FCRN between ESS and GTs". This file has not been tested after anonymization.
   
