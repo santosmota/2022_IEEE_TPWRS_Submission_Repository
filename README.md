@@ -10,15 +10,21 @@ The data is divided into folders:
 Simulations performed with Matlab R2018a Update 6.
 
 The following files are stored in this folder: 
-  - FCR_sharing.slx: simulink linearized rotating mass model with three primary power providers, two gas turbines and an energy storage system.
-  - FCR_sharing_Script.m: runs linear analyzes of the the simulink model for 7 different gain sets for the FCR providers, stores the eigenvalues of each analyzis in a csv file.
-  - mateigen_run_1.csv ... mateigen_run_7.csv: output files of the script FCR_sharing_Script.m.
-  
+  - **FCR_sharing.slx**: simulink linearized rotating mass model with three primary power providers, two gas turbines and an energy storage system.
+  - **FCR_sharing_Script.m**: runs linear analyzes of the the simulink model for 7 different gain sets for the FCR providers, stores the eigenvalues of each analyzis in a csv file.
+  - **mateigen_run_1.csv ... mateigen_run_7.csv**: output files of the script FCR_sharing_Script.m.
+    
 ## Detailed model
 The following files are stored in this folder: 
   - file this and that
 
-## Detailed model
+## Power hardware in the loop (PHIL)
 The following files are stored in this folder: 
   - file this and that
+
+## Python Scripts
+The following files are stored in this folder: 
+  - **journal_MATLAB_eigen_7csv.py**: anonymized version of the Python script for obtaining the figure in the manuscript with caption "Eigenvalues with linearized rotating mass model for a total gain of 12 MW/Hz and different sharing of FCRN between ESS and GTs". This file has not been tested after anonymization.
+  
+
 
