@@ -1,6 +1,61 @@
 # Data Repository for Manuscript Submission to IEEE TPWRS - 2022
 
-Data repository for the manuscript "Coordination of Frequency Reserves in an Isolated Industrial Grid Equipped with Energy Storage and Dominated by Constant Power Loads" submitted to the IEEE Transations in Power Systems in October 2022.
+Data repository for the manuscript "Coordination of Frequency Reserves in an Isolated Industrial Grid Equipped with Energy Storage and Dominated by Constant Power Loads" submitted to the IEEE Transations in Power Systems:
+
+  - Original manuscript: October 2022
+  - First revision after comments: January 2023
+  - Second revision after comments: June 2023
+  - Final submission (after approval): August 2023
+
+The models and other files that have been used for writing this manuscript are listed in the next sections. The list is made on a "per figure of the manuscript" basis. Some auxiliary python files are not explicitly listed, but it should be possible to indentify them by reading the python scripts that were used to control PowerFactory, to make the figures (matplotlib), and to parameterize the Simulink file.
+
+The files are provided without any warranty. Use at your own risk. And cite if you use it.
+
+## Software Tools
+
+### MatLab (Linearized rotating mass model)
+
+  - MATLAB R2018a Update 6 (9.4.0.949201) 64-bit (win64)
+  - Windows 10 - Version 21H2 (OS Build 190144.2364): for MATLAB.
+
+### PowerFactory
+
+  - DIgSILENT PowerFactory 2020 SP2a (x64) Build 20.0.4.1 (10037) / Rev. 73397
+  - Windows Server 2016 Version 1607 (OS Build 14393.5582): for running PowerFactory
+
+### PHIL tests
+
+  - RT-LAB (Workbench) Version: v2020.4.1.166: for compiling and uploading the electrical model into the real time simulator.
+  - MATLAB R2016a (9.0.0341360) 64-bit (win64): the model compiled and loaded up to the real-time simulator
+  - Windows 10 - Version 21H2 (OS Build 190144.2364): for running RT-LAB and MATLAB.
+  - OPAL-RT OPAL-RT Linux (x86-based) version	2.6.29.6-opalrt-6.1: real time simulator.
+
+## Figure 4
+Frequency during a step load of 1.2MW with different sharing of FCRN between ESS and GTs.
+
+TO BE DONE... I THINK I USED NTNU'S COMPUTER...
+
+## Figure 5
+Eigenvalues with linearized rotating mass model for a total gain of 12 MW/Hz and different sharing of FCRN between ESS and GTs.
+
+Matlab + Simulink + CSV + eps: 
+
+    at ./MatLab/
+    - FCR_sharing.slx: Simulink Model
+    - FCR_sharing_Script.m: Script that opens the simulink model,
+         creates the input and output for the linearization, linearizes,
+         calculates the eigenvalues, and saves CSV files with the results.
+    - figeigenmatlab.eps: Figure 4 created with Python / matplotlib.
+    - mateigen_run_1.csv: eigenvalues for Kgt=12MW/Hz, Kess = 0MW/Hz.
+    - mateigen_run_2.csv: eigenvalues for Kgt=10MW/Hz, Kess = 2MW/Hz.
+    - mateigen_run_3.csv: eigenvalues for Kgt=8MW/Hz, Kess = 4MW/Hz.
+    - mateigen_run_4.csv: eigenvalues for Kgt=6MW/Hz, Kess = 6MW/Hz.
+    - mateigen_run_5.csv: eigenvalues for Kgt=4MW/Hz, Kess = 8MW/Hz.
+    - mateigen_run_6.csv: eigenvalues for Kgt=2MW/Hz, Kess = 10MW/Hz.
+    - mateigen_run_7.csv: eigenvalues for Kgt=0MW/Hz, Kess = 12MW/Hz.
+
+
+## OLD README
 
 The data is divided into folders:
   - Simplified rotating mass model
