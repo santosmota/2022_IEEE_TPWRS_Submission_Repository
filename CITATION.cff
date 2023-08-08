@@ -5,7 +5,7 @@ authors:
   given-names: "Daniel dos Santos"
   orcid: "https://orcid.org/0000-0002-3602-1036"
 title: "2022_IEEE_TPWRS_Submission_Repository"
-version: 0.0.0
-doi: tbd
-date-released: 2022-10
+version: 1.0.0
+doi: 10.5281/zenodo.7113316
+date-released: 2023-08
 url: "https://github.com/santosmota/2022_IEEE_TPWRS_Submission_Repository"
