@@ -1981,7 +1981,7 @@ def main():
             # PLATPsecctrl kg = 1, Toff = 60s    
 
     #plot_eigen_fmeas_from_csvs(simcount_total=7,
-    #                           csvfolder="//home.ansatt.ntnu.no/daniemot/Desktop/2022_Journal_Data/Powerfactory/simdata/20220824",
+    #                           csvfolder="//...Desktop/2022_Journal_Data/Powerfactory/simdata/20220824",
     #                           offsetfrequency=False,
     #                           plotFmeasBTC=False,
     #                           plotvpcc=True,
