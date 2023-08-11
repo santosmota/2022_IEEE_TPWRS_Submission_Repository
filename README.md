@@ -36,7 +36,7 @@ The files are provided without any warranty. Use at your own risk. And cite if y
 
 Matlab + Simulink + CSV + eps: 
 
-    at ./Simplified/
+    at ./Matlab/
     - FCR_sharing.slx: Simulink Model
     - FCR_sharing_steps_Script.m: runs the step responses
     - FCR_sharing_eigen_Script.m: runs the eigenvalue analysis
@@ -57,8 +57,116 @@ Matlab + Simulink + CSV + eps:
 
 Python script: 
 
-    at ./PyCharts/
-    - Eigen_MATLAB_7csv.py: opens the csv files and creates the eps figure.
+    at ./Python/
+    - the python script for creating figure 4 has been ``lost in translations'' 
+    - Eigen_MATLAB_7csv.py: creates figure 5
+
+## Figure 8
+Voltage and frequency at the main busbar during a step load of 1.2 MW.
+
+PowerFactory Project:
+
+    - ./PowerFactory/20220824/202208_RMS_Tests.pfd
+
+PowerFactory running and data creation:
+    
+    - ./Python/PowerFactory_charts.py:
+        Uncomment line in main "run_sim_steps_load_Z2_eigen(Z2_plini=1.2)"
+        for running PowerFactory and creating the data.
+        Uncomment line in main "plot_eigen_fmeas_from_csvs(simcount_total=7,.."
+        for creating the figure and set "plotvpcc=True".
+
+Raw Data and eps figure:
+
+    at ./PowerFactory/20220824/
+    - figstepsfvpcc.eps: created with function plot_eigen_fmeas_from_csvs in PowerFactory_charts.py.
+    - timedomain_00.csv: GTs 6MW/Hz, BTC 0MW/Hz, FLX 0MW/Hz.
+    - timedomain_01.csv: GTs 5MW/Hz, BTC 1MW/Hz, FLX 1MW/Hz.
+    - timedomain_02.csv: GTs 4MW/Hz, BTC 2MW/Hz, FLX 2MW/Hz.
+    - timedomain_03.csv: GTs 3MW/Hz, BTC 3MW/Hz, FLX 3MW/Hz.
+    - timedomain_04.csv: GTs 2MW/Hz, BTC 4MW/Hz, FLX 4MW/Hz.
+    - timedomain_05.csv: GTs 1MW/Hz, BTC 5MW/Hz, FLX 5MW/Hz.
+    - timedomain_06.csv: GTs 0MW/Hz, BTC 6MW/Hz, FLX 6MW/Hz.
+
+## Figure 9
+Complex plane with eigenvalues.
+
+PowerFactory Project (same as in Figure 5):
+
+    - ./PowerFactory/20220824/202208_RMS_Tests.pfd
+
+PowerFactory running and data creation:
+
+    - ./Python/PowerFactory_charts.py:
+       Uncomment line in main "run_sim_steps_load_Z2_eigen(Z2_plini=1.2)"
+       for running PowerFactory and creating the data.
+       Uncomment line in main "plot_eigen_fmeas_from_csvs_3charts()"
+       for creating the figure. 
+
+Raw Data and eps figure:
+
+    at ./PowerFactory/20220824/
+    - figstepsfvpcc.eps: created with function plot_eigen_fmeas_from_csvs_3charts in PowerFactory_charts.py.
+    - eigenvalues_00.csv: GTs 6MW/Hz, BTC 0MW/Hz, FLX 0MW/Hz.
+    - eigenvalues_01.csv: GTs 5MW/Hz, BTC 1MW/Hz, FLX 1MW/Hz.
+    - eigenvalues_02.csv: GTs 4MW/Hz, BTC 2MW/Hz, FLX 2MW/Hz.
+    - eigenvalues_03.csv: GTs 3MW/Hz, BTC 3MW/Hz, FLX 3MW/Hz.
+    - eigenvalues_04.csv: GTs 2MW/Hz, BTC 4MW/Hz, FLX 4MW/Hz.
+    - eigenvalues_05.csv: GTs 1MW/Hz, BTC 5MW/Hz, FLX 5MW/Hz.
+    - eigenvalues_06.csv: GTs 0MW/Hz, BTC 6MW/Hz, FLX 6MW/Hz.
+
+## Figure 10
+Steps of 3 MW used for comparing the PowerFactory model and the PHIL test bed.
+
+PowerFactory Project:
+
+    - ./PowerFactory/20230105/202208_RMS_Tests.pfd
+    Last back-up of this project.
+
+PowerFactory running and data creation:
+    
+    - ./Python/PowerFactory_charts.py:
+        Uncomment line in main "run_sim_3xstepload_Z2(Z2_plini=3.0)"
+        for running PowerFactory and creating the data.
+
+Python script / matplotlib and figure file: 
+  
+    - ./Python/Steps_PowerFactory_vs_RTLAB.py: creates the figure
+    - ./RTLab/simdata/20220816/PlotSignalList.mat: mat file signal list
+    - ./RTLab/simdata/20220816/figsteps_PowFact_RTLAB.pdf: the figure
+   
+PowerFactory data:
+
+    at ./PowerFactory/20220824_3steps/
+    - simulationdata_00.csv : Case 3 - FCRN: BTC+FLEX
+    - simulationdata_01.csv : Case 2 - FCRN: BTC+GTs
+    - simulationdata_02.csv : Case 1 - FCRN: GTs
+
+PHIL data:
+  
+    at ./RTLab/simdata/20220816/
+    - signal_list.txt: mat file signal list in text format
+    - PHILconfig.png: reminder of how to set the PHIL test
+    - PHIL_3MW_FCRN_BTCFLEX.mat : Case 3 - FCRN: BTC+FLEX
+    - PHIL_3MW_FCRN_BTCGTs.mat : Case 2 - FCRN: BTC+GTs
+    - PHIL_3MW_FCRN_GTs.mat : Case 1 - FCRN: GTs
+
+The .mat fies with the PHIL data had to be zipped into several files smaller than 100MB due to Git Hub restrictions.
+
+## Figure 10
+Loss of 11MW from the wind farm for comparing the FCR vs Traditional.
+
+Python script: 
+  
+    - ./PyCharts/WindChange_FCR_vs_Traditional.py
+  
+PHIL data:
+      
+    - ./RTLab/simdata/20220820/PlotSignalList.mat
+    - ./RTLab/simdata/20230106/PHIL_Wind_12_6m_s_FCR.mat: Case 3 - FCRN: BTC+FLEX
+    - ./RTLab/simdata/20230106/PHIL_Wind_12_6m_s_Trad.mat: Traditional droop GTs=BTC=FLX=1MW/Hz
+    
+The .mat fies with the PHIL data had to be zipped into several files smaller than 100MB due to Git Hub restrictions.
 
 ## OLD README
 
