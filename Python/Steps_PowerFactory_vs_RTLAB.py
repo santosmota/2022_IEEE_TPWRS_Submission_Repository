@@ -1,3 +1,8 @@
+#################################################################
+# Generates figure 9
+# which contains steps of 3MW for comparing PowerFactory and PHIL RT LAB
+#################################################################
+
 from tkinter import Tk     # from tkinter import Tk for Python 3.x
 from tkinter.filedialog import askopenfilename
 
@@ -6,19 +11,12 @@ import pandas as pd
 import scipy.io
 
 import matplotlib.pyplot as plt
-plt.rcParams.update(plt.rcParamsDefault)
+# plt.rcParams.update(plt.rcParamsDefault)
+plt.rcParams['text.usetex'] = True
 plt.rcParams['mathtext.fontset'] = 'cm'  # 'cm' Computer modern # 'dejavuserif', 'dejavusans'
 plt.rcParams['font.family'] = 'serif'
-plt.rcParams['font.serif'] = 'cmr10'  # 'https://matplotlib.org/3.1.1/gallery/text_labels_and_annotations/font_file.html
-# plt.rcParams['font.sans-serif'] = 'DejaVu Sans'
-# ... https://matplotlib.org/stable/tutorials/introductory/customizing.html#matplotlibrc-sample
-# DejaVu is shipped with Matplotlib and is thus guaranteed
-# to be available; the other entries are
-# left as examples of other possible values.
-# https://stackoverflow.com/questions/58361594/matplotlib-glyph-8722-missing-from-current-font-despite-being-in-font-manager
-# avoids RuntimeWarning: Glyph 8722 missing from current font. font.set_text(s, 0.0, flags=flags)
+plt.rcParams['font.serif'] = 'cmr10'
 plt.rc('axes', unicode_minus=False)
-#https://stackoverflow.com/questions/29188757/matplotlib-specify-format-of-floats-for-tick-labels
 
 #############
 # solves a warning with a previous syntax for using the package
@@ -26,8 +24,6 @@ plt.rc('axes', unicode_minus=False)
 plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
 from matplotlib.ticker import FormatStrFormatter
 # from matplotlib.offsetbox import AnchoredText
-
-from plothelp import cor_dalt
 
 def plot_charts_from_csv_mat():
     print("#####################")
@@ -59,7 +55,7 @@ def plot_charts_from_csv_mat():
     # SIGNAL LIST
     #####################################
     # FOLDER LOCATION
-    signal_list_folder = '/2022_Journal_Data/RTLab/simdata/'
+    signal_list_folder = '../RTLab/simdata/20220816/'
     siglist_fullpath = signal_list_folder + 'PlotSignalList.mat'
     mat = scipy.io.loadmat(siglist_fullpath)
     siglist = mat['signalList']
@@ -74,12 +70,12 @@ def plot_charts_from_csv_mat():
     # DATA FILE - MAT FILE
     ###############################################################
     # FOLDER LOCATION
-    data_folder = '/2022_Journal_Data/RTLab/simdata/20220816/'
+    data_folder = '../RTLab/simdata/20220816/'
 
     # TKINTER TO OPEN THE FILE
     # Tk().withdraw()  # we don't want a full GUI, so keep the root window from appearing
     # data_full_path_01 = askopenfilename(initialdir=data_folder)  # show an "Open" dialog box and return the path to the selected file
-    data_full_path_01 = '/2022_Journal_Data/RTLab/simdata/20220816/3MW/opalPlotFile_5.mat'
+    data_full_path_01 = '../RTLab/simdata/20220816/PHIL_3MW_FCRN_BTCFLEX.mat'
 
     print('###########################')
     print('# RT LAB')
@@ -88,13 +84,13 @@ def plot_charts_from_csv_mat():
     mat01 = scipy.io.loadmat(data_full_path_01)
 
     # data_full_path_02 = askopenfilename(initialdir=data_folder)  # show an "Open" dialog box and return the path to the selected file
-    data_full_path_02 = '/2022_Journal_Data/RTLab/simdata/20220816/3MW/opalPlotFile_6.mat'
+    data_full_path_02 = '../RTLab/simdata/20220816/PHIL_3MW_FCRN_BTCGTs.mat'
 
     print('Chosen file: ', data_full_path_02)
     mat02 = scipy.io.loadmat(data_full_path_02)
 
     # data_full_path_03 = askopenfilename(initialdir=data_folder)  # show an "Open" dialog box and return the path to the selected file
-    data_full_path_03 = '/2022_Journal_Data/RTLab/simdata/20220816/3MW/opalPlotFile_8.mat'
+    data_full_path_03 = '../RTLab/simdata/20220816/PHIL_3MW_FCRN_GTs.mat'
     print('Chosen file: ', data_full_path_03)
     mat03 = scipy.io.loadmat(data_full_path_03)
 
@@ -102,7 +98,7 @@ def plot_charts_from_csv_mat():
     # CREATING THE NAME OF THE FIGURE, FROM THE NAME OF THE MAT FILE
     index = data_full_path_01.rfind('/')  # index to last character '/'
     figure_folder = data_full_path_01[0:index + 1]  # selects figure folder
-    figure_full_path = figure_folder + 'figsteps_PowFact_RTLAB.eps'  # adds the 'eps
+    figure_full_path = figure_folder + 'figsteps_PowFact_RTLAB.pdf'  # adds the 'eps
 
     #####################################
     # EXTRACTS DATA FROM MAT FILE AND PUT IN A DATAFRAME
@@ -162,7 +158,6 @@ def plot_charts_from_csv_mat():
                                         num='Step3MW')
     # stiles for the RTLAB plots
     aux = 'solid'  # (0, (1, 5))  # 'dotted'   # (0, (1, 10))
-    # cor_rt = [cor_dalt['pink'], cor_dalt['green'], cor_dalt['purple']]
     cor_rt = ['blue', 'gray', 'red']
     linstyle_rt = [aux, aux, aux]
     linewidth_rt = [0.5, 0.5, 0.5]  # if using dotted, better to use 1.0 linewidth
@@ -170,7 +165,6 @@ def plot_charts_from_csv_mat():
 
     # styles for the power factory plots
     aux = (0, (6, 4))  # https://matplotlib.org/stable/gallery/lines_bars_and_markers/linestyles.html
-    # cor_pf = [cor_dalt['red'], cor_dalt['orange'], cor_dalt['blue']]
     cor_pf = ['blue', 'gray', 'red']
     linestyle_pf = [(0, (7, 3)), (0, (6, 3)), (0, (7, 4))]
     linewidth_pf = [0.75, 0.75, 0.75]  # if using dotted, better to use 1.0 linewidth
@@ -337,7 +331,7 @@ def plot_charts_from_csv_mat():
     ###############################################################
     # POWER FACTORY
     ###############################################################
-    csvfolder = "/2022_Journal_Data/Powerfactory/simdata/"
+    csvfolder = "../Powerfactory/simdata/"
     csvfolder = csvfolder + "20220824_3steps/"
     print('###########################')
     print('# POWERFACTORY')
@@ -349,6 +343,7 @@ def plot_charts_from_csv_mat():
         ##########################################################################
 
         df_PowFact = pd.read_csv(csvfolder + 'simulationdata_0' + str(simcount) + '.csv')
+        print("                 ", 'simulationdata_0' + str(simcount) + '.csv')
 
         df_PowFact["time"] = df_PowFact["time"] + gambiarratempo
 
@@ -428,7 +423,7 @@ def plot_charts_from_csv_mat():
     axs_steps[0][1].set_ylabel(r'Busbar freq. (Hz)')
     axs_steps[0][2].set_ylabel(r'WF power (MW)')
 
-    axs_steps[1][0].set_ylabel(r'GTs power (MW)')
+    axs_steps[1][0].set_ylabel(r'GTs elec. power (MW)')
     axs_steps[1][1].set_ylabel(r'Load power (MW)')
     axs_steps[1][2].set_ylabel(r'FLX power (MW)')
 
@@ -525,7 +520,8 @@ def plot_charts_from_csv_mat():
     fig_steps.align_ylabels(axs_steps[:, :])
     fig_steps.tight_layout()
     fig_steps.show()
-    plt.savefig(figure_full_path, format='eps')
+    # plt.savefig(figure_full_path, format='eps')
+    plt.savefig(figure_full_path, format='pdf')
 
     plt.show()
 

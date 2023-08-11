@@ -1,3 +1,14 @@
+##############################################################################################
+# Auxiliary functions to control PowerFactory via Python
+#     	The  functions may be ``hardcoded'' to the specific project
+#     	Some functions may be more generic
+###############################################################################################
+# By: Daniel dos Santos Mota, 2023-01-05
+# 	This file has been copied from a private repository into this public one.
+#       Some comments have been added only to the copied file.
+#	It has not been tested after copying.
+###############################################################################################
+
 import numpy as np
 import pandas as pd
 
@@ -5,13 +16,15 @@ import pandas as pd
 # calc_ini_rms(app, dtgrd=0.001):
 # run_rms(app, tstop=15.0):
 # run_modal(app):
+# save_snapshot(app, suppressUserMessage=1):
+# load_snapshot(app, suppressUserMessage=1):
 # set_switch_transient_param(app, trans_name='PCC11kV_Z2',...
+# def set_load_param(app, load_name='Z2.ElmLod',
 # get_res_time(app, elmres):
 # get_res_element(app, elmres, n_row, element_name='PLATPmeas.ElmVsc', signal_name='s:pfixed'):
+# get_eigen_real_imag_participation(app, part_threshold=0.5,...
 # set_iactrefgen_droop(app, controller_name='*BCiactref.ElmDsl',
-# set_load_param(app, load_name='Z2.ElmLod',
-# set_govdb_N_droopmaxmin(app, controller_name=...
-
+# set_govdb_N_droop(app, controller_name='*GT1govdb.ElmDsl',
 
 
 ###############################################################################################

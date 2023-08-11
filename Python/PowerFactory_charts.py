@@ -1,3 +1,65 @@
+##############################################################################################
+# Several Python functions (not very well organized)
+###############################################################################################
+# By: Daniel dos Santos Mota, 2023-01-05
+# 	This file has been copied from a private repository into this public one.
+#       Some comments have been added only to the copied file.
+#	It has not been tested after copying.
+###############################################################################################
+
+##############################################################################
+# LIST OF FUNCTIONS
+##############################################################################
+# def run_sim_3xstepload_Z2(Z2_plini = 3.0):
+# -----------------------------------------
+#    runs three step loads with different FCR gains, saves CSVs of time and eigenvalues
+#
+#    if 3MW step: ../Powerfactory/simdata/20220824_3steps/ # The one used for FIGURE
+#
+#    gts_normal_k = [0.0, 1.217532468, 2.435064935]
+#    btc_kp_gain = [55.65862709, 55.65862709, 0.0]
+#    flex_kp_gain = [10.1503759399, 0.0, 0.0]  
+#
+#    creates csvs for eigenvalues: 
+#        csvfolder + "eigenvalues_0" + str(simcount) + "_tini" +".csv"
+#        csvfolder + "eigenvalues_0" + str(simcount) + "_tmid" +".csv"
+#        csvfolder + "eigenvalues_0" + str(simcount) + "_tend" +".csv"
+#    creates csvs for time domain:
+#        csvfolder + "simulationdata_0" + str(simcount) + ".csv"
+####################################
+# def plot_3xstepload_Z2():
+#--------------------------
+#    Leftover - not used in the manuscript
+####################################
+# def run_sim_steps_load_Z2_eigen(Z2_plini=1.0):
+#-----------------------------------------------
+#    7 steps (creates the data for FIGURES 5 and 6)
+#
+#    proj_name = '202208_RMS_Tests'
+#
+#    csvfolder = "../Powerfactory/simdata/20220824/"
+#
+#    figstepname = csvfolder + '/figsteps_needsretouching.eps'
+#    figeigename = csvfolder + '/figeigen_needsretouching.eps'
+#    figstep11kVname = csvfolder + '/figsteps11kV_needsretouching.eps'
+#
+#    csvname = csvfolder + "/eigenvalues_0" + str(simcount) + '.csv'
+#    csvtimedomainname = csvfolder + "/timedomain_0" + str(simcount) + '.csv'
+#    csveigentotfolder = '\\\\!REDACTED!\\2022_Journal_Data\\Powerfactory\\simdata\\20220824\\'
+#
+#    simcount_total = 7
+#    cores = ['red', 'gray', 'gray', 'gray', 'gray', 'gray', 'blue']
+####################################
+# def plot_eigen_fmeas_from_csvs(simcount_total=7...plotvpcc=True,...
+#------------------------------------------------
+#    Creates FIGURES 5 and 6
+####################################
+# def plot_eigen_charts_from_3_csvs():
+# def plot_eigen_chart_from_1_csvs():
+#   LEFTOVERS - not used in the manuscript
+
+# def main():
+
 from tkinter import Tk     # from tkinter import Tk for Python 3.x
 from tkinter.filedialog import askopenfilename
 
@@ -30,15 +92,6 @@ plt.rc('axes', unicode_minus=False)
 #https://stackoverflow.com/questions/65645194/warning-set-it-to-a-single-string-instead
 plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
 
-
-##############################################################################
-# LIST OF FUNCTIONS
-##############################################################################
-# def run_sim_3xstepload_Z2(Z2_plini = 3.0):
-# def plot_3xstepload_Z2():
-# def plot_eigen_charts_from_3_csvs():
-# def main():
-
 ##############################################################################
 #  run_sim_3xstepload_3MW()
 ##############################################################################
@@ -50,7 +103,7 @@ def run_sim_3xstepload_Z2(Z2_plini = 3.0):
     # Open Power Factory
     ##########################################################################
     import sys
-    sys.path.append(r"C:\programs\DIgSILENT\PowerFactory-2020\Python\3.7")    
+    sys.path.append(r"C:\programs\DIgSILENT\PowerFactory-2020\Python\3.7")
     # Path to PowerFactory Python Module
     #for name in sys.path:
         #    print(name)
@@ -60,16 +113,15 @@ def run_sim_3xstepload_Z2(Z2_plini = 3.0):
     # Get Power Factory Application
     ##########################################################################
     # try:
-    #    app = pf.GetApplicationExt()
+    #     app = pf.GetApplicationExt()
     # except pf.ExitError as error:
-    #    print(error)
-    #    print('error.code = %d' % error.code)
+    #     print(error)
+    #     print('error.code = %d' % error.code)
     
     app = pf.GetApplication()
     if app is None:
         raise Exception('getting Powerfactory application failed')
 
-    #proj_name = '202207_RMS_Tests'
     proj_name = '202208_RMS_Tests'
     study_case = 'Study Case'
     project, proj = pfc.open_project_study_case(app=app,
@@ -83,12 +135,15 @@ def run_sim_3xstepload_Z2(Z2_plini = 3.0):
     figsizey = 5
     fig_steps, axs_steps = plt.subplots(3, 3, sharex=True,
                                            figsize=(figsizex, figsizey),
-                                           num='Step3MW')
+                                           num='Step3')
 
     ##########################################################################
     # folder for saving the csv files
     ##########################################################################
-    csvfolder = "/2022_Journal_Data/Powerfactory/simdata/20220824_3steps/"
+    if Z2_plini == 3.0:
+        csvfolder = "../Powerfactory/simdata/20220824_3steps/"
+    if Z2_plini == 6.0:
+        csvfolder = "../Powerfactory/simdata/20221028_3steps_6MW/"
 
     ##########################################################################
     # Figures for plotting
@@ -145,8 +200,8 @@ def run_sim_3xstepload_Z2(Z2_plini = 3.0):
     
         pfc.set_iactrefgen_droop(app, controller_name='FLEX_iact_ref_gen.ElmDsl',
                                  kp=flex_kp_gain[simcount],
-                                 pdroopmax=1.5/7.6/0.9,
-                                 pdroopmin=-1.5/7.6/0.9)
+                                 pdroopmax=1.5/7.6*0.9,
+                                 pdroopmin=-1.5/7.6*0.9)
     
         pfc.set_govdb_N_droop(app, controller_name='GT1govdb.ElmDsl',
                               kN=gts_normal_k[simcount],
@@ -285,7 +340,8 @@ def run_sim_3xstepload_Z2(Z2_plini = 3.0):
         # PLOT
         ##########################################################################
         # selecting the figure
-        plt.figure('Step3MW')                       # select the figure
+        plt.figure('Step3')
+        # select the figure
         
         axs_steps[0][0].plot(time, vpcc*vn_pcc,
                                 linestyle=estilos[simcount],
@@ -393,10 +449,7 @@ def plot_3xstepload_Z2():
     ##########################################################################
     # folder for saving the csv files
     ##########################################################################
-    csvfolder = "/2022_Journal_Data/Powerfactory/simdata/"
-    # csvfolder = csvfolder + "20220723/step3MW/"
-    # csvfolder = csvfolder + "20220802/3MW/"
-    # csvfolder = csvfolder + "20220804/"
+    csvfolder = "../Powerfactory/simdata/"
     csvfolder = csvfolder + "20220816/"
     print("        csvfolder: ", csvfolder)
     
@@ -415,7 +468,7 @@ def plot_3xstepload_Z2():
     figsizey = 5
     fig_steps, axs_steps = plt.subplots(3, 3, sharex=True,
                                         figsize=(figsizex, figsizey),
-                                        num='Step3x3MW')
+                                        num='Step3xXMW')
     
     for simcount in range(0, 3):
         ##########################################################################
@@ -483,46 +536,6 @@ def plot_3xstepload_Z2():
     # ##########################################################################
     # # chart identification - legend - abcdefghi
     # ##########################################################################
-    # # https://matplotlib.org/stable/gallery/color/named_colors.html
-    # # colors lightgray gray aliceblue whitesmoke
-    # corlegenda = 'whitesmoke'
-    #
-    # axs_steps[0][0].annotate(r'a', xy=(100, 10.975), xycoords='data',
-    #                          #va='center', ha='center',
-    #                          bbox=dict(boxstyle='circle', fc=corlegenda))
-    #
-    # axs_steps[0][1].annotate(r'b', xy=(100, 49.250), xycoords='data',
-    #                          #va='center', ha='center',
-    #                          bbox=dict(boxstyle='circle', fc=corlegenda))
-    #
-    # axs_steps[0][2].annotate(r'c', xy=(100, 11.59), xycoords='data',
-    #                          #va='center', ha='center',
-    #                          bbox=dict(boxstyle='circle', fc=corlegenda))
-    #
-    # axs_steps[1][0].annotate(r'd', xy=(100, 34), xycoords='data',
-    #                          #va='center', ha='center',
-    #                          bbox=dict(boxstyle='circle', fc=corlegenda))
-    #
-    # axs_steps[1][1].annotate(r'e', xy=(100, 37.5), xycoords='data',
-    #                          #va='center', ha='center',
-    #                          bbox=dict(boxstyle='circle', fc=corlegenda))
-    #
-    # axs_steps[1][2].annotate(r'f', xy=(100, 4.85), xycoords='data',
-    #                          #va='center', ha='center',
-    #                          bbox=dict(boxstyle='circle', fc=corlegenda))
-    #
-    # axs_steps[2][0].annotate(r'g', xy=(100, 0.25), xycoords='data',
-    #                          #va='center', ha='center',
-    #                          bbox=dict(boxstyle='circle', fc=corlegenda))
-    #
-    # axs_steps[2][1].annotate(r'h', xy=(100, 0.25), xycoords='data',
-    #                          #va='center', ha='center',
-    #                          bbox=dict(boxstyle='circle', fc=corlegenda))
-    #
-    # axs_steps[2][2].annotate(r'i', xy=(100, -0.35), xycoords='data',
-    #                          #va='center', ha='center',
-    #                          bbox=dict(boxstyle='circle', fc=corlegenda))
-    #
     corlegenda = 'whitesmoke'
 
     axs_steps[0][0].annotate(r'a', xy=(100, 10.9), xycoords='data',
@@ -658,7 +671,6 @@ def run_sim_steps_load_Z2_eigen(Z2_plini=1.0):
     if app is None:
         raise Exception('getting Powerfactory application failed')
 
-    # proj_name = '202207_RMS_Tests'
     proj_name = '202208_RMS_Tests'
     study_case = 'Study Case'
     project, proj = pfc.open_project_study_case(app=app,
@@ -667,9 +679,8 @@ def run_sim_steps_load_Z2_eigen(Z2_plini=1.0):
     ##########################################################################
     # folder for saving the csv files
     ##########################################################################
-    csvfolder = "/2022_Journal_Data/Powerfactory/simdata/20220824/"
-    csveigentotfolder = '\\2022_Journal_Data\\Powerfactory\\simdata\\20220824\\'
-
+    csvfolder = "../Powerfactory/simdata/20220824/"
+    csveigentotfolder = '\\\\!REDACTED!\\2022_Journal_Data\\Powerfactory\\simdata\\20220824\\'
 
     figstepname = csvfolder + '/figsteps_needsretouching.eps'
     figeigename = csvfolder + '/figeigen_needsretouching.eps'
@@ -692,18 +703,11 @@ def run_sim_steps_load_Z2_eigen(Z2_plini=1.0):
                                                   figsize=(figsizex, figsizey),
                                                   num='Step11kV')
 
-
-
     figsizex = 5
     figsizey = 9
     fig_eigen, axs_eigen = plt.subplots(1, 1, sharex=True,
                                         figsize=(figsizex, figsizey),
                                         num='Eigen')
-
-    
-    # cores = ['red', 'gray', 'gray', 'blue']
-    # estilos = ['-', ':', ':', '-.']
-    # legendas = ['GTs', '', '', 'BTC+FLX']
         
     cores = ['red', 'gray', 'gray', 'gray', 'gray', 'gray', 'blue']
     estilos = ['-', ':', ':', ':', ':', ':', '-.']
@@ -718,22 +722,18 @@ def run_sim_steps_load_Z2_eigen(Z2_plini=1.0):
     ##########################################################################
     N_db = 0.0
 
-    # gts_normal_k = np.array([6.0, 4.0, 2.0, 0.0]) * 50.0 / 35.2
     gts_normal_k = np.array([6.0, 5.0, 4.0, 3.0, 2.0, 1.0, 0.0]) * 50.0 / 35.2
     gts_max_normal_droop_power = 1.5 / 35.2
     gts_min_normal_droop_power = -1.5 / 35.2
 
-    # btc_kp_gain = np.array([0.0, 2.0, 4.0, 6.0]) * 50.0 / 1.54
     btc_kp_gain = np.array([0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0]) * 50.0 / 1.54
     btc_max_normal_droop_power = 1.5/1.54
     btc_min_normal_droop_power = -1.5/1.54
 
-    # flex_kp_gain = np.array([0.0, 2.0, 4.0, 6.0]) * 50.0 / 8.5
     flex_kp_gain = np.array([0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0]) * 50.0 / (7.6 / 0.9)
     flex_max_normal_droop_power = 1.5 / (7.6 / 0.9)
     flex_min_normal_droop_power = -1.5 / (7.6 / 0.9)
 
-    # simcount_total = 4
     simcount_total = 7
 
     ##########################################################################
@@ -757,8 +757,8 @@ def run_sim_steps_load_Z2_eigen(Z2_plini=1.0):
                                    i_allph=1)  # 0:not all phases    1: all phases
 
     for simcount in range(0, simcount_total, 1):
-        print ("######################################################")
-        print ("Simulation run: ", simcount, "of ", simcount_total - 1)
+        print("######################################################")
+        print("Simulation run: ", simcount, "of ", simcount_total - 1)
         ##########################################################################
         # droops
         ##########################################################################
@@ -957,7 +957,7 @@ def run_sim_steps_load_Z2_eigen(Z2_plini=1.0):
 # plot eigen value charts and the frequency measurement from a set of csv files
 #####################################################
 def plot_eigen_fmeas_from_csvs(simcount_total=3,
-                               csvfolder="/2022_Journal_Data/Powerfactory/simdata/20220729",
+                               csvfolder="//REDACTED/2022_Journal_Data/Powerfactory/simdata/20220729",
                                offsetfrequency=False,
                                Fn=50.0,
                                plotFmeasBTC=False,
@@ -1331,7 +1331,7 @@ def plot_eigen_fmeas_from_csvs(simcount_total=3,
 # plot eigen value charts and the frequency measurement from a set of csv files
 #####################################################
 def plot_eigen_fmeas_from_csvs_3charts(simcount_total=7,
-                               csvfolder="/2022_Journal_Data/Powerfactory/simdata/20220824"
+                               csvfolder="//REDACTED/2022_Journal_Data/Powerfactory/simdata/20220824"
                                ):
     print("#####################")
     print("Function name: ", plot_eigen_fmeas_from_csvs_3charts.__name__)
@@ -1813,7 +1813,7 @@ def plot_eigen_charts_from_3_csvs():
     # DATA FILE - CSV FILE
     ###############################################################
     # FOLDER LOCATION
-    data_folder = '/2022_Journal_Data/PowerFactory/simdata/20220723/step3MW'
+    data_folder = '//REDACTED/2022_Journal_Data/PowerFactory/simdata/20220723/step3MW'
     # TKINTER TO OPEN THE FILE
     Tk().withdraw()  # we don't want a full GUI, so keep the root window from appearing
     data_full_path_01 = askopenfilename(initialdir=data_folder)
@@ -1908,7 +1908,7 @@ def plot_eigen_chart_from_1_csvs():
     # DATA FILE - CSV FILE
     ###############################################################
     # FOLDER LOCATION
-    data_folder = '/2022_Journal_Data/PowerFactory/simdata/'
+    data_folder = '//REDACTED/2022_Journal_Data/PowerFactory/simdata/'
     # TKINTER TO OPEN THE FILE
     Tk().withdraw()  # we don't want a full GUI, so keep the root window from appearing
     data_full_path_01 = askopenfilename(initialdir=data_folder)
@@ -1968,35 +1968,30 @@ def plot_eigen_chart_from_1_csvs():
 def main():
     print("#####################")
     print("Function name: ", main.__name__)
- 
-    # THE FUNCTIONS HAVE BEEN MANUALLY COMMENTED/UNCOMMENTED TO PERFORM DIFFERENT TASKS
 
-    # Runs the RMS simulations with the the 3MW steps for the comparison with the PHIL setup   
+    # 3 STEPS OF 3MW THAT MADE INTO FIRST DRAFT TO IEEE TPWRS
     # run_sim_3xstepload_Z2(Z2_plini=3.0)
- 
-    # Not used in this version of the paper
+
+    # 3 STEPS OF 6MW JUST IN CASE
+    # run_sim_3xstepload_Z2(Z2_plini=6.0)
     # plot_3xstepload_Z2()
 
-    # Runs the RMS simulations and the modal analysis for the detailed eigenvalue analysis    
     # run_sim_steps_load_Z2_eigen(Z2_plini=1.2)
         # ON the day 20220818
             # PLATPsecctrl kg = 1, Toff = 60s    
-    
-    # Not used in this version of the paper
+
     #plot_eigen_fmeas_from_csvs(simcount_total=7,
-    #                           csvfolder="/2022_Journal_Data/Powerfactory/simdata/20220824",
+    #                           csvfolder="//home.ansatt.ntnu.no/daniemot/Desktop/2022_Journal_Data/Powerfactory/simdata/20220824",
     #                           offsetfrequency=False,
     #                           plotFmeasBTC=False,
     #                           plotvpcc=True,
     #                           timeoffset=1.0,
     #                           detailplot=False) # False, True
-           
-    # Plots the figure with frequency and busbar voltage, used for the detailed eigenvalue analysis
-    # plots the eigenvalues in the 3 charts
-    plot_eigen_fmeas_from_csvs_3charts()  # False, True
+
+    # EIGENVALUES FIGURE THAT MADE INTO FIRST DRAFT TO IEEE TPWRS
+    # plot_eigen_fmeas_from_csvs_3charts()  # False, True
 
 
-    # not used in this version of the paper
     # plot_eigen_charts_from_3_csvs()
     # plot_eigen_chart_from_1_csvs()
     # print("Nothing else done")    

@@ -1,21 +1,11 @@
-# THIS IS A VERSION OF THE PYTHON SCRIPT USED OBTAINING THE FIGURE
-# WITH CAPTION "Eigenvalues with linearized rotating mass model for
-# a total gain of 12 MW/Hz and different sharing of FCRN between ESS and GTs"
-
-# THIS VERSION HAS BEEN CHANGED FROM THE ORIGINAL, FILE FOLDERS WITH REFERENCES
-# TO SPECIFIC FOLDERS HAVE BEEN ERASED
-
-
-from tkinter import Tk  # from tkinter import Tk for Python 3.x
-from tkinter.filedialog import askopenfilename
+#################################################################
+# Generates figure 4
+# which contains the eigen values of the Matlab model
+#   rotating mass model + reserves with time delays (Low-pass filters(
+#################################################################
 
 import numpy as np
-
-import powerfactorycontrol as pfc
-import plothelp as pth
-
 import pandas as pd
-
 import matplotlib.pyplot as plt
 from matplotlib.ticker import FormatStrFormatter
 
@@ -23,13 +13,6 @@ plt.rcParams.update(plt.rcParamsDefault)
 plt.rcParams['mathtext.fontset'] = 'cm'  # 'cm' Computer modern # 'dejavuserif', 'dejavusans'
 plt.rcParams['font.family'] = 'serif'
 plt.rcParams['font.serif'] = 'cmr10'  # 'https://matplotlib.org/3.1.1/gallery/text_labels_and_annotations/font_file.html
-# plt.rcParams['font.sans-serif'] = 'DejaVu Sans'
-# ... https://matplotlib.org/stable/tutorials/introductory/customizing.html#matplotlibrc-sample
-# DejaVu is shipped with Matplotlib and is thus guaranteed
-# to be available; the other entries are
-# left as examples of other possible values.
-# https://stackoverflow.com/questions/58361594/matplotlib-glyph-8722-missing-from-current-font-despite-being-in-font-manager
-# avoids RuntimeWarning: Glyph 8722 missing from current font. font.set_text(s, 0.0, flags=flags)
 plt.rc('axes', unicode_minus=False)
 # https://stackoverflow.com/questions/29188757/matplotlib-specify-format-of-floats-for-tick-labels
 
@@ -39,6 +22,9 @@ plt.rc('axes', unicode_minus=False)
 plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
 
 
+#####################################################
+# plot rool locus damping lines
+#####################################################
 def plot_root_locus_damping_lines_for_matlab(eigen_real, eigen_imag, axis, nzetalines=19,
                                              max_axis='auto', max_real=1000.0, max_imag=1000.0,
                                              color='black', label=None, linestyle='dotted',
@@ -156,7 +142,7 @@ def plot_root_locus_damping_lines_for_matlab(eigen_real, eigen_imag, axis, nzeta
 # plot eigen value charts and the frequency measurement from a set of csv files
 #####################################################
 def plot_eigen_from_7_csvs(simcount_total=7,
-                               csvfolder="//2022_Journal_Data/MatLab",
+                               csvfolder="../MatLab/",
                                offsetfrequency=False,
                                Fn=50.0):
     print("#####################")
@@ -232,6 +218,15 @@ def plot_eigen_from_7_csvs(simcount_total=7,
                        markersize=markersize)
 
         if simcount == 0:
+            # pth.plot_root_locus_damping_lines(eigen_real=df_eigen['real'],
+            #                                   eigen_imag=df_eigen['imag'],
+            #                                   axis=axs_eigen,  # nzetalines=31,
+            #                                   nzetalines=19,
+            #                                   max_real=np.abs(xmin), max_imag=ymax,
+            #                                   add_pos_damping_numbers=True,
+            #                                   max_axis='manual',
+            #                                   min_damp_for_adding_numbers=0.55)
+
             plot_root_locus_damping_lines_for_matlab(eigen_real=df_eigen['real'],
                                                      eigen_imag=df_eigen['imag'],
                                                      axis=axs_eigen,
