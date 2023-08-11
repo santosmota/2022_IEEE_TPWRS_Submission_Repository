@@ -1,5 +1,5 @@
 #################################################################
-# Generates figure 4
+# Generates figure ??
 # which contains the eigen values of the Matlab model
 #   rotating mass model + reserves with time delays (Low-pass filters(
 #################################################################

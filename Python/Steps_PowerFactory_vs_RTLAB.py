@@ -1,5 +1,5 @@
 #################################################################
-# Generates figure 9
+# Generates figure ??
 # which contains steps of 3MW for comparing PowerFactory and PHIL RT LAB
 #################################################################
 

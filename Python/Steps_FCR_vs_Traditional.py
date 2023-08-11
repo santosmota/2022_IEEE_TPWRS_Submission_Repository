@@ -1,6 +1,6 @@
 #################################################################
 # Generates figure ??
-# which contains... comparing FCR with Traditional Droop
+# which contains ... comparing FCR with Traditional Droop
 #################################################################
 
 from tkinter import Tk  # from tkinter import Tk for Python 3.x
@@ -33,7 +33,7 @@ def plot_charts():
     ###############################################################
     # hardcoded choices
     ###############################################################
-    transient_type = 'Wind'  # the 6MW one
+    transient_type = 'Load2'  # the 6MW one
     # transient_type = 'Load3'  # the 3MW one
 
     GT_w_pu_base = 50.0  # Hz
@@ -55,7 +55,7 @@ def plot_charts():
     # SIGNAL LIST
     #####################################
     # FOLDER LOCATION
-    signal_list_folder = '../RTLab/simdata/20230106/'
+    signal_list_folder = '../RTLab/simdata/20221220/'
     siglist_fullpath = signal_list_folder + 'PlotSignalList.mat'
     mat = scipy.io.loadmat(siglist_fullpath)
     siglist = mat['signalList']
@@ -83,7 +83,7 @@ def plot_charts():
         data_full_path = '../RTLab/simdata/20221220/RT_Wind_3MW_FCR.mat'
     else:
         # data_full_path = '../RTLab/simdata/20221220/RT_Wind_6MW_FCR.mat'
-        data_full_path = '../RTLab/simdata/20230106/PHIL_Wind_12_6m_s_FCR.mat'
+        data_full_path = '../RTLab/simdata/20221220/PHIL_Wind_6MW_FCR.mat'
 
     print('Chosen file ONE: ', data_full_path)
     mat = scipy.io.loadmat(data_full_path)
@@ -97,8 +97,7 @@ def plot_charts():
     if transient_type == 'Load3':
         data_full_path = '../RTLab/simdata/20221220/PHIL_Wind_3MW_Trad.mat'
     else:
-        # data_full_path = '../RTLab/simdata/20221223/RT_Wind_6MW_Trad.mat'
-        data_full_path = '../RTLab/simdata/20230106/PHIL_Wind_12_6m_s_Trad.mat'
+        data_full_path = '../RTLab/simdata/20230106/PHIL_Wind_6MW_Trad.mat'
 
     print('Chosen file TWO: ', data_full_path)
     mat = scipy.io.loadmat(data_full_path)
@@ -112,7 +111,10 @@ def plot_charts():
     # index = data_full_path.rfind('/')  # index to last character '/'
     # figure_folder = data_full_path[0:index + 1]  # selects figure folder
 
-    figure_full_path = '../RTLab/simdata/20230106/' + 'Wind_12_6_m_s.pdf'
+    if transient_type == 'Load3':
+        figure_full_path = '../RTLab/simdata/20221220/' + 'Step3MW.pdf'
+    else:
+        figure_full_path = '../RTLab/simdata/20221220/' + 'Step6MW.pdf'
 
     #####################################
     # TRANSIENT TYPE, TIME, AND OTHER CHOICES
@@ -126,8 +128,8 @@ def plot_charts():
         trig_02 = df_02['498: sig.model.gui_commands.load2_connect'].gt(0.5).idxmax()
 
     else:
-        trig_01 = df_01['359: sig.model.windfarm_meas.COL.Pavg_pu'].lt(0.8).idxmax()
-        trig_02 = df_02['359: sig.model.windfarm_meas.COL.Pavg_pu'].lt(0.8).idxmax()
+        trig_01 = df_01['2: Trigg signal'].gt(0.5).idxmax()
+        trig_02 = df_02['2: Trigg signal'].gt(0.5).idxmax()
 
     print('Making array of time')
     df_01['time'] = df_01['1: Time'].values - df_01.at[trig_01, '1: Time'] + gambiarra_time
@@ -169,7 +171,7 @@ def plot_charts():
                       color=cor[1], linewidth=linw[1], linestyle=lst[1],
                       label=lab[1])
 
-    axs_steps[0][0].plot([5, 55],
+    axs_steps[0][0].plot([5, 35],
                          [49, 49],
                          color='black', linewidth=linw[0], linestyle=lst[2],
                          label=r'FCR$_{\textrm{N},\textrm{D}}$ limit')
@@ -287,46 +289,40 @@ def plot_charts():
     axs_steps[1][0].set_xticks(np.arange(-20, 180, 10))
     axs_steps[1][0].set_xlim([-0, 90])  # 120
 
-    axs_steps[0][0].set_yticks(np.arange(40, 60, 1))
-    axs_steps[0][0].set_ylim([47, 50.25])
+    axs_steps[1][0].set_yticks(np.arange(30, 40, 0.5))
+    axs_steps[1][0].set_ylim([33.2, 35.25])
+    axs_steps[1][0].yaxis.set_major_formatter(FormatStrFormatter('%.1f'))
 
-    axs_steps[1][0].set_yticks(np.arange(30, 46, 2))
-    axs_steps[1][0].set_ylim([32, 40])
+    axs_steps[0][2].set_yticks(np.arange(20, 40, 2))
+    axs_steps[0][2].set_ylim([24, 32])
+    # axs_steps[0][2].yaxis.set_major_formatter(FormatStrFormatter('%.1f'))
 
-    axs_steps[0][2].set_yticks(np.arange(10, 40, 2))
-    axs_steps[0][2].set_ylim([24, 36])
-
-    axs_steps[1][2].set_yticks(np.arange(-12, 20, 4))
-    axs_steps[1][2].set_ylim([-13, 9])
-
-    #axs_steps[1][0].yaxis.set_major_formatter(FormatStrFormatter('%.1f'))
-
-    ## axs_steps[0][2].yaxis.set_major_formatter(FormatStrFormatter('%.1f'))
-
-    ## axs_steps[1][2].yaxis.set_major_formatter(FormatStrFormatter('%.1f'))
+    axs_steps[1][2].set_yticks(np.arange(-4, 8, 2))
+    axs_steps[1][2].set_ylim([-2.2, 4.1])
+    # axs_steps[1][2].yaxis.set_major_formatter(FormatStrFormatter('%.1f'))
 
     ##########################################################################
     # Arrows
     ##########################################################################
     # GT Power
     axs_steps[1][0].annotate(r'Tradit.droop+sec.power',
-                             xy=(23, 39.5), xycoords='data',
+                             xy=(22.0, 35.0), xycoords='data',
                              fontsize=9,
-                             xytext=(42, 39.0), textcoords='data',
+                             xytext=(42, 35.0), textcoords='data',
                              ha='left',
                              arrowprops=dict(arrowstyle="->", connectionstyle="arc3"))
 
     axs_steps[1][0].annotate(r'FCR$_{\textrm{D}}$+sec.power',
                              fontsize=9,
-                             xy=(12.0, 39), xycoords='data',
-                             xytext=(35.0, 34.5), textcoords='data',
+                             xy=(18.0, 34.4), xycoords='data',
+                             xytext=(50.0, 34.5), textcoords='data',
                              ha='left',
                              arrowprops=dict(arrowstyle="->", connectionstyle="arc3"))
 
-    axs_steps[1][0].annotate(r'Secondary power references (dashed)',
+    axs_steps[1][0].annotate(r'Sec.pow.references',
                              fontsize=9,
-                             xy=(12.0, 34.5), xycoords='data',
-                             xytext=(16.0, 32.5), textcoords='data',
+                             xy=(19.0, 33.8), xycoords='data',
+                             xytext=(16.0, 33.25), textcoords='data',
                              ha='left',
                              arrowprops=dict(arrowstyle="->", connectionstyle="arc3"))
 
@@ -334,15 +330,15 @@ def plot_charts():
     # BTC power
     axs_steps[0][1].annotate(r'FCR$_{\textrm{N}}$',
                              fontsize=9,
-                             xy=(55.0, 1.22), xycoords='data',
-                             xytext=(70.0, 1.35), textcoords='data',
+                             xy=(32.0, 1.2), xycoords='data',
+                             xytext=(60.0, 1.25), textcoords='data',
                              ha='left',
                              arrowprops=dict(arrowstyle="->", connectionstyle="arc3"))
 
     axs_steps[0][1].annotate(r'Traditional droop',
                              fontsize=9,
-                             xy=(45, 0.8), xycoords='data',
-                             xytext=(20, 0.25), textcoords='data',
+                             xy=(35, 0.7), xycoords='data',
+                             xytext=(53.0, 0.9), textcoords='data',
                              ha='left',
                              arrowprops=dict(arrowstyle="->", connectionstyle="arc3"))
 
@@ -350,15 +346,15 @@ def plot_charts():
     # FLEX power
     axs_steps[1][1].annotate(r'Traditional droop',
                              fontsize=9,
-                             xy=(50, 5.3), xycoords='data',
-                             xytext=(15, 5.8), textcoords='data',
+                             xy=(32, 5.25), xycoords='data',
+                             xytext=(50.0, 4.6), textcoords='data',
                              ha='left',
                              arrowprops=dict(arrowstyle="->", connectionstyle="arc3"))
 
     axs_steps[1][1].annotate(r'FCR$_{\textrm{N}}$',
                              fontsize=9,
-                             xy=(80, 5.45), xycoords='data',
-                             xytext=(75, 4.75), textcoords='data',
+                             xy=(55, 5.4), xycoords='data',
+                             xytext=(75, 5.1), textcoords='data',
                              ha='left',
                              arrowprops=dict(arrowstyle="->", connectionstyle="arc3"))
 
@@ -384,7 +380,7 @@ def plot_charts():
     axs_steps[1][1].annotate(r'e', xy=(0.05, 0.3), xycoords='axes fraction',
                              bbox=dict(boxstyle='circle', fc=corlegenda))
 
-    axs_steps[1][2].annotate(r'f', xy=(0.05, 0.2), xycoords='axes fraction',
+    axs_steps[1][2].annotate(r'f', xy=(0.05, 0.3), xycoords='axes fraction',
                              bbox=dict(boxstyle='circle', fc=corlegenda))
 
     ##########################################################################
