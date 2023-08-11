@@ -115,7 +115,7 @@ Raw Data and eps figure:
     - eigenvalues_05.csv: GTs 1MW/Hz, BTC 5MW/Hz, FLX 5MW/Hz.
     - eigenvalues_06.csv: GTs 0MW/Hz, BTC 6MW/Hz, FLX 6MW/Hz.
 
-## Figure 10
+## Figure 12
 Steps of 3 MW used for comparing the PowerFactory model and the PHIL test bed.
 
 PowerFactory Project:
@@ -151,81 +151,20 @@ PHIL data:
     - PHIL_3MW_FCRN_BTCGTs.mat : Case 2 - FCRN: BTC+GTs
     - PHIL_3MW_FCRN_GTs.mat : Case 1 - FCRN: GTs
 
-The .mat fies with the PHIL data had to be zipped into several files smaller than 100MB due to Git Hub restrictions.
+The .mat files with the PHIL data had to be zipped into several files smaller than 100MB due to Git Hub restrictions.
 
-## Figure 10
+## Figure 13
 Loss of 11MW from the wind farm for comparing the FCR vs Traditional.
 
 Python script: 
   
-    - ./PyCharts/WindChange_FCR_vs_Traditional.py
+    - ./Python/WindChange_FCR_vs_Traditional.py
   
 PHIL data:
       
-    - ./RTLab/simdata/20220820/PlotSignalList.mat
+    - ./RTLab/simdata/20230106/PlotSignalList.mat: signal list of the mat files
+    - ./RTLab/simdata/20230106/Electrical_model_settings.m: script of the electrical model
     - ./RTLab/simdata/20230106/PHIL_Wind_12_6m_s_FCR.mat: Case 3 - FCRN: BTC+FLEX
     - ./RTLab/simdata/20230106/PHIL_Wind_12_6m_s_Trad.mat: Traditional droop GTs=BTC=FLX=1MW/Hz
     
-The .mat fies with the PHIL data had to be zipped into several files smaller than 100MB due to Git Hub restrictions.
-
-## OLD README
-
-The data is divided into folders:
-  - Simplified rotating mass model
-  - Detailed model
-  - Power hardware in the loop (PHIL)
-  - Python scripts
-  
-## Simplified rotating mass model
-
-Simulations performed with Matlab R2018a Update 6.
-
-The following files are stored in this folder: 
-  - **FCR_sharing.slx**:
-      - Simulink linearized rotating mass model with three primary power providers, two gas turbines and an energy storage system.
-  - **FCR_sharing_Script.m**:
-      - Runs linear analyzes of the simulink model for 7 different gain sets for the FCR providers, stores the eigenvalues of each analyzis in a csv file.
-  - **mateigen_run_1.csv ... mateigen_run_7.csv**:
-      - Output files of the script FCR_sharing_Script.m.
-    
-## Detailed model
-
-Simulations performed with DIgSILENT PowerFactory 2020 SP2A.
-
-The following files are stored in this folder: 
-  - **202208_RMS_Tests.pfd**: archive of the project.
-  - **/Stability/**
-      - **eigenvalues_00.csv ... eigenvalues_06.csv**: obtained after running **journal_powfact_charts_01.py**, used for plotting the 3 charts (side by side) with eigenvalues.
-      - **timedomain_00.csv ... timedomain_06.csv**: time domain data with the steps of 1.2MW used for the eigenvalue analysis.
-  - **/ThreeStepsForPHILvalidation/** simulation files with 3MW steps used for validation with the PHIL results. 
-      - **simulationdata_00.csv**: case 3, ESS + FLX
-      - **simulationdata_01.csv**: case 2, GTs + ESS
-      - **simulationdata_02.csv**: case 1, GTs only
-   
-## Power hardware in the loop (PHIL)
-
-The following files are stored in this folder: 
-  - **opalPlotFile_5.mat**: case 1, GTs only
-  - **opalPlotFile_6.mat**: case 2, GTs + ESS
-  - **opalPlotFile_8.mat**: case 3, ESS + FLX
-
- For data storage purposes, the three files were stored in a split zip file. Use 7zip to unpack the three mat files from the six "7z.00x" files.
-
-## Python Scripts
-
-Anonymized version of the Python scripts used for controlling PowerFactory and for obtaining the figures in the manuscript. The scripts have not been tested after anonymization.
-
-The following files are stored in this folder: 
-  - **powerfactorycontrol.py**:
-      - Custom made functions for controlling the model in **202208_RMS_Tests.pfd**. Fuctions for open the project and study case, set gains, time for transients, run RMS simulations, run modal analyzis, etc.
-  - **plothelp.py**:
-      - Custom made help functions for plotting the figures in the manuscript.
-  - **journal_powfact_charts_01.py**:
-      - Controls **202208_RMS_Tests.pfd** and runs the simulations for the detailed eigenvalue analysis. Runs also the RMS simulations for comparison with the PHIL setup. Functions have to be manually commented/uncommented inside the script.
-  - **journal_PowFacRTLAB_charts_01.py**:
-      - Plots the load steps with secondary power response from the PowerFactory and PHIL tests.
-  - **journal_MATLAB_eigen_7csv.py**:
-      - For obtaining the figure in the manuscript with caption "Eigenvalues with linearized rotating mass model for a total gain of 12 MW/Hz and different sharing of FCRN between ESS and GTs".
-  
-
-
+The .mat files with the PHIL data had to be zipped into several files smaller than 100MB due to Git Hub restrictions.
