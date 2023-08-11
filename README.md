@@ -3,8 +3,15 @@
 Data repository for the manuscript "Coordination of Frequency Reserves in an Isolated Industrial Grid Equipped with Energy Storage and Dominated by Constant Power Loads" submitted to the IEEE Transations in Power Systems:
 
   - Original manuscript: October 2022
+    - 10 page max, some figures did not make the cut
   - First revision after comments: January 2023
+    - Largest revision, total pages passed 10
+    - Made new laboratory PHIL tests
+    - Added comparision between FCR and traditional droop (there was no space for it before) 
   - Second revision after comments: June 2023
+    - Smaller revision
+    - Added more figures for explanation of concepts
+    - No new lab test / no new raw data
   - Final submission (after approval): August 2023
 
 The models and other files that have been used for writing this manuscript are listed in the next sections. The list is made on a "per figure of the manuscript" basis. Some auxiliary python files are not explicitly listed, but it should be possible to indentify them by reading the python scripts that were used to control PowerFactory, to make the figures (matplotlib), and to parameterize the Simulink file.
